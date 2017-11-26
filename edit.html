@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-mirror-component/dist/aframe-mirror-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>    
+    <script src="aframe-physical-training-component.js"></script>
+  </head>
+  <body> 
+    <div id="calendarURL" style="z-index:99; display:none; position:absolute; top:0px;"></div>
+    <div id="contribute" style="z-index:99; display:none; position:absolute; top:0px; right:0px">
+      Want to give a hand by adding your own exercises?
+      Email <a href="mailto:fabien-services@benetou.fr">fabien-services@benetou.fr</a>
+       or Tweet at @utopiah.</div>
+    <div id="edit" style="z-index:99; display:block; position:absolute; top:0px;">
+    
+    <h1>
+      Customize the exercises:
+      </h1>
+    
+      <h2>
+        First exercise
+      </h2>
+      <li>Duration <input type="range" min="1" max="100" value="50" class="slider" id="myRange"></li>
+        <li>Attribute <select>
+  <option value="position">position</option>
+  <option value="rotation">rotation</option>
+  <option value="scale">scale</option>
+</select> </li>
+        <li>Color <input type="color"></li>
+          
+        <li>From x <input type="range" min="1" max="100" value="50" class="slider" id="fromx"></li>
+        <li>From y <input type="range" min="1" max="100" value="50" class="slider" id="fromy"></li>
+        <li>From z <input type="range" min="1" max="100" value="50" class="slider" id="fromz"></li>
+        <li>To x <input type="range" min="1" max="100" value="50" class="slider" id="tox"></li>
+        <li>To y <input type="range" min="1" max="100" value="50" class="slider" id="toy"></li>
+        <li>To z <input type="range" min="1" max="100" value="50" class="slider" id="toz"></li>
+    
+      
+    </div>
+    <a-scene physical-practice>
+      <a-assets>
+        <a-asset-item id="robot-obj" src="https://vatelier.net/MyDemo/TestingTriangulation/robot/model.obj"></a-asset-item>
+        <a-asset-item id="robot-mtl" src="https://vatelier.net/MyDemo/TestingTriangulation/robot/model.mtl"></a-asset-item>
+        <video id="video" loop="false" src="https://vatelier.net/MyDemo/KineVR/RickMortyPreview.mp4"></video>
+        <audio id="success" src="https://vatelier.net/MyDemo/KineVR/success.mp3" preload="auto"></audio>
+
+      </a-assets>
+      
+      <a-plane height="20" width="20" position="0 0 -10" mirror="interval:100; repeat:true; distance:100; resolution:512;"></a-plane>
+      
+      <a-entity camera look-controls position="0 1.8 0">
+        <a-entity position="0.5 0.1 -0.5" id="score" text="value: 0;"></a-entity>
+        <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                  material="color: black; shader: flat">
+        </a-entity>
+        <a-entity obj-model="obj: #robot-obj; mtl: #robot-mtl" position="0 1 1" scale="4 4 4"></a-entity>
+      </a-entity>
+      
+      <a-entity position="0 1.8 -0.5" id="conclusion" text="value: Start your physical re-education training in 5sec;"></a-entity>
+      <a-entity sequential-practice>
+        <!-- add your different exercises here from the first to the last, order matters -->       
+          
+        
+        <a-plane color="pink" height="0.1" width="0.1" target-practice position="0 1.8 -1.5">
+          <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
+                       repeat="2" dur="1000" to="0 1.8 -0.5"></a-animation>
+        </a-plane>
+        
+        <a-box target-practice position="-10 0.5 -3" rotation="0 45 0" color="#4CC3D9">
+          <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
+                       repeat="2" dur="1000" to="10 0.5 -3"></a-animation>
+          <!-- see also https://github.com/ngokevin/kframe/tree/master/components/animation/
+                    or  https://github.com/protyze/aframe-alongpath-component -->
+        </a-box>        
+        
+        <a-sphere target-practice position="0 2 -3" radius="1.25" color="#EF2D5E">
+          <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
+                       repeat="4" dur="1000" to="0 -4 -3"></a-animation>
+        </a-sphere>
+        
+        <a-cylinder target-practice position="0 1 -3" radius="0.5" rotation="0 0 -45" height="1.5" color="#FFC65D">
+          <a-animation attribute="rotation" fill="forwards" begin="start" direction="alternate"
+                       repeat="4" dur="1000" from="0 0 -45" to="0 0 45"></a-animation>
+        </a-cylinder>
+        
+      </a-entity>
+      
+      <a-box scale="4 0.2 1" color="#7BC8A4"></a-box>
+      <a-sphere radius="50" material="side:double; color:#ECECEC;"></a-sphere>
+    </a-scene>
+  </body>
+</html>
