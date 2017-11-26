@@ -4,63 +4,54 @@ The exercises featured here  are solely examples that are adapted to one specifi
 
 This is shared in order to avoid duplicate work and more efficiently exchange expertise that could make kinesitherapy and physiotherapy in VR more efficient.
 
+![in VR](https://vatelier.net/MyDemo/KineVR/inVR.jpg)
+
+Videos
+- [First person view](https://vatelier.net/MyDemo/KineVR/demo.mp4)
+- [Example of video with head-mounted display](https://vatelier.net/MyDemo/KineVR/hmd.mp4) (can be used to check after or with the kine that the movement was indeed correct)
+
+
 # Features
 
+- online working right now, no install, free [http://kinevr.glitch.me/](http://kinevr.glitch.me/)
+  - editable right now, no install, free [https://glitch.com/edit/#!/kinevr](https://glitch.com/edit/#!/kinevr)
 - sequential practice of exercises
-- customizable exercises in
+- customizable exercises in (using on A-Frame `<a-animation>`)
   - duration `dur="1000"` (making sure to respect the pace)
   - repetitions `repeat="4"` (no need to count, you can mentally drift),
   - amplitude `from="-3 1.8 -0.5" to="3 1.8 -0.5"` and
   - stay motived for the next session (score is saved via URL)
-- personal meaningful target practices ()
-  - target (see below)
-- point counting based on sustained gaze
+- personal meaningful target practices
   - video that play/pause once started using `src="#video"`
-  - subreddit (e.g. r/Awww) as slider using `reddit-slider="Awww"`
-- instruction per exercise using `target-practice="head vertical rotation"`
-- illustration per exercise using `illustration="KineVR/twist.jpg"`
+  - subreddit (e.g. r/Awww) as slider using `reddit-slider="Awww"` (you only see the next image if you look long enough)
+- point counting based on sustained gaze
+  - generated link to add to Google Calendar with your last score
+![Add to Google Calendar](https://vatelier.net/MyDemo/KineVR/AddToCalendar_preview.jpg)
+- per exercise instructions
+  - as text using `target-practice="head vertical rotation"`
+  - as visual illustration using `illustration="KineVR/twist.jpg"` 
+![neck twist](https://vatelier.net/MyDemo/KineVR/twist_preview.jpg)
 - mirror to check own position
 - the entire environment is customizable
+
+ # Example of exercise
+ 
+```html
+
+<a-entity sequential-practice>
+  <a-box target-practice="deep head lateral rotation" position="-10 0.5 -3" rotation="0 45 0" color="#4CC3D9">
+     <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
+                         repeat="2" dur="1000" to="10 0.5 -3"></a-animation>
+  </a-box>
+</a-entity>
         
-# To do
+```
+        
+# F.A.Q.
 
-- give example with controllers to showcase it can be done also for limbs
-  - including legs/arms by strapping the controller around
-- adjust height
-  - cf https://github.com/rdub80/aframe-gravr-component to keep it personalized
-- properly handle mobile (right now just a quick hack)
-- if no score first time thus give a tutorial (clone robot?)
-  - share about timing, links, show by blinking or similar how gaze works (with visible line)
-  - first session have another robot with a laser coming out of his eyes and when he follows the target we see his score inscreasing? 
-  - in addition to the text for non technical people
-- compare with previousScore if it is exists
-  - give tips  
-- add more feedback
-  - poping up stars for each second watching
-- easiest way for non technical people to add exercises
-  - Github PR or even comment isn't super non technical friendly
-  - dedicated interface? (saving in this Glitch with node?)
-- server side
-  - option to share exercise data with timestamp, name, etc with kine
-    - he/she would receive notification only if a certain pattern (e.g. no data for a 1 week, score too low, etc)
-- document how to make a training session including 
-  - how to make a target move
-  - how to make a target more attractive (glTF, video, etc)
-  - share catalogue of exercises (PR?)
-- make it bullproof but tricky order (e.g. no camera available yet or trying to get ID while element isn't yet created)
-- exercises for VR folks (i.e. identifying and counter balance the effects OF wearing a HMD)
-
-# done
-- find ways to keep it entertaining (video with ending displayed only if above threshold)
-  - random pics from 
-    - https://www.reddit.com/r/aww/ changed every time you look long enough
-- audio (as suggested by Thomas)
-- improve mirror resolution (as suggested by Thomas)  
-- display div with https://calendar.google.com/calendar/render?action=TEMPLATE&text=Next+training+:+URL#Score
-- added contact information for contributions
-- motivated by sketch https://pbs.twimg.com/media/DPa3M2bX4AEFXbd.jpg
-- name for exercise
-  - with optional visual aid e.g. http://www.humankinetics.com/AcuCustom/Sitename/DAM/086/18art1_Main.png
-- showcase with
-  - calendar event creation with score
-  - in HMD (needs a video recording)
+- Your exercises are too fast and they don't include the ones I need, how can I do it?
+  - Please feel free to make your own exercise (cf example above) and share them back (via Github comment or pull request)
+- I need to train my arms or legs, can I use this?
+  - Yes right now it's focusing on head because that is my personal need but using controllers for limbs is not complicated.
+- What's coming next?
+  -  Editing exercise without coding, using limbs, etc. For details see [the TODO file](https://github.com/Utopiah/KineVR/blob/master/TODO.md)
