@@ -1,6 +1,8 @@
 
 # To do
 
+- if the video played and continued over exercises is shorter than total length of exercises then add it in the URL to continue during the next training session
+- give WebAR example for arms or walking exercises
 - give example with controllers to showcase it can be done also for limbs
   - including legs/arms by strapping the controller around
 - adjust height

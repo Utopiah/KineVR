@@ -5,82 +5,113 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>    
     <script src="aframe-physical-training-component.js"></script>
   </head>
-  <body> 
+  <body>
+    <!-- HTML visual helpers -->
+        
+    <!-- handling mobiles by asking for user action -->
+    <div id="mobile" style="z-index:99; display:none; position:absolute; top:0px;">
+      <a href="#" onclick="startMobile();">Ready to train? Start</a>
+    </div>
+    
+    <!-- Link to add to Google Calendar the next lesson -->
     <div id="calendarURL" style="z-index:99; display:none; position:absolute; top:0px;"></div>
+    
+    <!-- Want to help? Here is how and where -->
     <div id="contribute" style="z-index:99; display:none; position:absolute; top:0px; right:0px">
       Want to give a hand by adding your own exercises?
       Email <a href="mailto:fabien-services@benetou.fr">fabien-services@benetou.fr</a>
        or Tweet at @utopiah.</div>
+    
+    <!-- VR scene -->
     <a-scene physical-practice>
+      
+      <!-- 3D model of the avatar, videos and sound effects -->
       <a-assets>
         <a-asset-item id="robot-obj" src="https://vatelier.net/MyDemo/TestingTriangulation/robot/model.obj"></a-asset-item>
         <a-asset-item id="robot-mtl" src="https://vatelier.net/MyDemo/TestingTriangulation/robot/model.mtl"></a-asset-item>
         
-        <video id="video" loop="false" src="https://vatelier.net/MyDemo/KineVR/RickMortyPreview.mp4"></video>
         <video id="demo" loop="false" src="https://vatelier.net/MyDemo/KineVR/demo.mp4"></video>
-        <video id="hmd" loop="false" src="https://vatelier.net/MyDemo/KineVR/HMD.mp4"></video>
-        
+        <video id="hmd" loop="false" src="https://vatelier.net/MyDemo/KineVR/HMD.mp4"></video>        
         
         <audio id="success" src="https://vatelier.net/MyDemo/KineVR/success.mp3" preload="auto"></audio>
-
+        
+        <!-- video to stay entertained, cutomize to YOUR need (make sure CORS is enabled) -->
+        <video id="video" loop="true" src="https://vatelier.net/MyDemo/KineVR/Darth.mp4"></video>
       </a-assets>
       
+      <!-- mirror to check for posture, requires the script inclusion -->
       <a-plane height="20" width="20" position="0 0 -10" mirror="interval:100; repeat:true; distance:100; resolution:512;"></a-plane>
-      
-      <a-entity camera look-controls position="0 1.8 0">
-        
-        <a-entity id="eyes" visible="false">
-          <a-cylinder target-practice position="-0.1 1.1 -2.5" radius="0.05" rotation="70 0 1" height="5" color="red" opacity="0.3"></a-cylinder>
-          <a-cylinder target-practice position="0.1 1.1 -2.5" radius="0.05" rotation="70 0 -1" height="5" color="red" opacity="0.3"></a-cylinder>
-        </a-entity>
+            
+      <!-- VR scene -->
+      <a-entity camera look-controls>
         <a-entity position="0.5 0.1 -0.5" id="score" text="value: 0;" visible="false"></a-entity>
         <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1"
                   geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
                   material="color: black; shader: flat">
         </a-entity>
-        <a-entity obj-model="obj: #robot-obj; mtl: #robot-mtl" position="0 0.6 1" scale="4 4 4"></a-entity>
+        <!-- avatar to check own posture in the mirror -->
+        <a-entity obj-model="obj: #robot-obj; mtl: #robot-mtl" position="0 0.6 1" scale="4 4 4"></a-entity>        
+        <a-entity id="eyes" visible="false">
+          <a-cylinder target-practice position="-0.1 1.1 -2.5" radius="0.05" rotation="70 0 1" height="5" color="red" opacity="0.3"></a-cylinder>
+          <a-cylinder target-practice position="0.1 1.1 -2.5" radius="0.05" rotation="70 0 -1" height="5" color="red" opacity="0.3"></a-cylinder>
+        </a-entity>
       </a-entity>
       
+      <!-- introduction displayed if first time training -->
       <a-entity id="introduction" visible="false">
         <a-video width="2" src="#demo" position="1 1.8 -1" rotation="0 -20 0"></a-video>
         <a-video width="2" src="#hmd" position="-1 1.8 -1" rotation="0 20 0"></a-video>
         <a-entity position="0 1.5 -0.5" text="value: Physiotherapy exercise - Doing the right movements increases your score, the cursors turn green.;"></a-entity>
       </a-entity>
       
+      <!-- giving the final score -->
       <a-entity position="0 1.8 -0.5" id="conclusion" text="value: Start your physical re-education training in 5sec;"></a-entity>
-      <a-image position="0 2.8 -1" id="illustration" src="" visible="false"></a-image>
-      <a-entity position="0 1.8 -0.5" id="instructions" text="value: instructions will appear here.;" visible="false"></a-entity>
+      
+      <!-- if an exercise has a pedagogical illustration, show it -->
+      <a-image position="-2 1.8 -1" id="illustration" src="" visible="false" look-at="[camera]"></a-image>
+      
+      <!-- if an exercise has instruction, show it -->
+      <a-entity position="0 0.8 -0.5" id="instructions" text="value: instructions will appear here.;" visible="false"></a-entity>
+      
+      <!-- series of exercises, customize for YOUR need -->
       <a-entity sequential-practice>
         <!-- add your different exercises here from the first to the last, order matters -->       
+        <!-- please add your own exercises to the github repository in order to let others benefit from it -->        
         
-        
-        <a-plane color="pink" height="0.1" width="0.1" target-practice="head parralel back/forth" position="0 1.8 -1.5">
-          <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
-                       repeat="20" dur="1000" to="0 1.8 -0.5"></a-animation>
-        </a-plane>        
+        <!-- note that those are solely example, please do consult with your physical therapist first! -->
+        <!-- add your different exercises here from the first to the last, order matters --> 
         
         <a-video width="2" src="#video" target-practice="narrow head lateral rotation" position="-5 0.5 -3" look-at="[camera]"
                     illustration="https://vatelier.net/MyDemo/KineVR/twist.jpg">
           <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
                        repeat="20" dur="5000" to="5 0.5 -3"></a-animation>
-        </a-video>            
+        </a-video>
         
-        <a-sphere target-practice="head vertical rotation" position="0 2 -3" radius="1.25" color="#EF2D5E">
+        <a-video width="2" src="#video" target-practice="head vertical rotation" position="0 2 -3" look-at="[camera]"
+                    illustration="https://vatelier.net/MyDemo/KineVR/twist.jpg">
           <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
                        repeat="20" dur="5000" to="0 -4 -3"></a-animation>
-        </a-sphere>
+        </a-video>         
         
-        <a-cylinder target-practice="head tilt to the side"
-                    illustration="https://vatelier.net/MyDemo/KineVR/tilt.jpg"
-                    position="0 1 -3" radius="0.5" rotation="0 0 -45" height="1.5" color="#FFC65D">
+        <a-video width="2" src="#video" target-practice="head tilt to the side"
+                    illustration="https://vatelier.net/MyDemo/KineVR/tilt.jpg" position="0 1.8 -1.5">
           <a-animation attribute="rotation" fill="forwards" begin="start" direction="alternate"
                        repeat="20" dur="4000" from="0 0 -45" to="0 0 45"></a-animation>
-        </a-cylinder>
+        </a-video>        
         
+        <a-video width="2" src="#video" target-practice="head parralel back/forth" position="0 1.8 -1.5" look-at="[camera]">
+          <a-animation attribute="position" fill="forwards" begin="start" direction="alternate"
+                       repeat="20" dur="1000" to="0 1.8 -0.5"></a-animation>
+        </a-video>        
+          <!-- see also https://github.com/ngokevin/kframe/tree/master/components/animation/
+                    or  https://github.com/protyze/aframe-alongpath-component -->
+    
       </a-entity>
       
       <a-box scale="4 0.2 1" color="#7BC8A4"></a-box>
+      <!-- ground -->
       <a-sphere radius="50" material="side:double; color:#ECECEC;"></a-sphere>
+      <!-- using a sphere rather than a-sky for the mirror -->
     </a-scene>
   </body>
 </html>
