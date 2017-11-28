@@ -22,7 +22,7 @@ Videos
   - amplitude `from="-3 1.8 -0.5" to="3 1.8 -0.5"` and
   - stay motived for the next session (score is saved via URL)
 - personal meaningful target practices
-  - video that play/pause once started using `src="#video"`
+  - video that play/pause once started using `src="#video"` (you can continue the same video over multiple exercises)
   - subreddit (e.g. r/Awww) as slider using `reddit-slider="Awww"` (you only see the next image if you look long enough)
 - point counting based on sustained gaze
   - generated link to add to Google Calendar with your last score

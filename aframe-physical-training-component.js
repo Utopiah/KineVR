@@ -5,6 +5,7 @@ var score = 0;
 var points = [];
 var threshold = 3;
 var images = [];
+var videoTimings = {};
 
 function startMobile(){
   document.querySelector("#introduction").setAttribute("visible", true);
@@ -52,7 +53,9 @@ AFRAME.registerComponent('sequential-practice', {
     }
     
     if(window.location.hash.length>0){
-     var previousScore = JSON.parse(decodeURI(window.location.hash).substring(1));
+     var data = JSON.parse(decodeURI(window.location.hash).substring(1));
+      var previousScore = data.previousScore;
+      videoTimings = data.videoTimings;
       document.querySelector("#conclusion").setAttribute("text", "value",  "Your last score was " + previousScore[previousScore.length-1]
                                                          + " Can you do better this time? Starting in 5 seconds again...");
     } else {
@@ -114,7 +117,10 @@ AFRAME.registerComponent('sequential-practice', {
       }
       
       if (e.tagName == "A-VIDEO"){
-        document.querySelector( e.getAttribute("src") ).play();
+        var src = e.getAttribute("src");
+        if (videoTimings[src]) document.querySelector( src ).currentTime = videoTimings[src];
+        document.querySelector( src ).play();
+        console.log(videoTimings, document.querySelector( src ).currentTime)
       }
       
       setTimeout(function(){ e.emit("start"); }, 1000);
@@ -123,7 +129,12 @@ AFRAME.registerComponent('sequential-practice', {
       e.querySelector("a-animation").addEventListener("animationend", () => { 
         points.push(score);
         if (e.tagName == "A-VIDEO"){
-          document.querySelector( e.getAttribute("src") ).pause();
+          var src = e.getAttribute("src");
+          document.querySelector( src ).pause();
+          // should add the video current time to the data to save via URL
+          var currentTime = document.querySelector( src ).currentTime;
+          var duration = document.querySelector( src ).duration;
+          videoTimings[src] = currentTime;
         }
         //console.log('finished exercise', e);
         if ( (points.length==1 && score > threshold) || (points.length>1 && ( score - points[points.length-2]) > threshold) ){
@@ -153,7 +164,7 @@ AFRAME.registerComponent('sequential-practice', {
       // could also compare with previousScore if it is exists
       document.querySelector("#calendarURL").style.display = "block";
       document.querySelector("#contribute").style.display = "block";
-      window.location.hash = JSON.stringify(points);
+      window.location.hash = JSON.stringify({previousScore: points, videoTimings: videoTimings});
       document.querySelector("#calendarURL").innerHTML = "<a target='_blank' href='"
         +calendarURL+encodeURIComponent(window.location)
         +"'>Add to Google Calendar</a>";
