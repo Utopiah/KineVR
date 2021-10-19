@@ -26,11 +26,11 @@ Videos
   - subreddit (e.g. r/Awww) as slider using `reddit-slider="Awww"` (you only see the next image if you look long enough)
 - point counting based on sustained gaze
   - generated link to add to Google Calendar with your last score
-![Add to Google Calendar](https://vatelier.net/MyDemo/KineVR/AddToCalendar_preview.jpg)
+![Add to Google Calendar](https://vatelier.benetou.fr/MyDemo/KineVR/AddToCalendar_preview.jpg)
 - per exercise instructions
   - as text using `target-practice="head vertical rotation"`
   - as visual illustration using `illustration="KineVR/twist.jpg"` 
-![neck twist](https://vatelier.net/MyDemo/KineVR/twist_preview.jpg)
+![neck twist](https://vatelier.benetou.fr/MyDemo/KineVR/twist_preview.jpg)
 - mirror to check own position
 - the entire environment is customizable
 
