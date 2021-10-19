@@ -4,11 +4,11 @@ The exercises featured here  are solely examples that are adapted to one specifi
 
 This is shared in order to avoid duplicate work and more efficiently exchange expertise that could make kinesitherapy and physiotherapy in VR more efficient.
 
-![in VR](https://vatelier.net/MyDemo/KineVR/inVR.jpg)
+![in VR](https://vatelier.benetou.fr/MyDemo/KineVR/inVR.jpg)
 
 Videos
-- [First person view](https://vatelier.net/MyDemo/KineVR/demo.mp4)
-- [Example of video with head-mounted display](https://vatelier.net/MyDemo/KineVR/hmd.mp4) (can be used to check after or with the kine that the movement was indeed correct)
+- [First person view](https://vatelier.benetou.fr/MyDemo/KineVR/demo.mp4)
+- [Example of video with head-mounted display](https://vatelier.benetou.fr/MyDemo/KineVR/HMD.mp4) (can be used to check after or with the kine that the movement was indeed correct)
 
 
 # Features
